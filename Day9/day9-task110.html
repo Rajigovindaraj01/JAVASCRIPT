@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styled Shopping List</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #e3f2fd;
+      margin: 10px 0;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
+
+    li:hover {
+      background-color: #bbdefb;
+    }
+
+    button {
+      background-color: #e74c3c;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Shopping List</h2>
+    <ul id="itemList">
+      <li>Milk <button>Remove</button></li>
+      <li>Eggs <button>Remove</button></li>
+      <li>Bread <button>Remove</button></li>
+      <li>Butter <button>Remove</button></li>
+    </ul>
+  </div>
+
+  <script>
+    // Get all the <button> elements
+    const buttons = document.querySelectorAll('button');
+
+    // Loop through each button and add a click event listener
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        // Remove the parent <li> of the clicked button
+        button.parentElement.remove();
+      });
+    });
+  </script>
+
+</body>
+</html>

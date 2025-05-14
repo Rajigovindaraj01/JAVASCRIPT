@@ -1,0 +1,46 @@
+<!-- JS107. Change the text of a paragraph using a button. -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Change Paragraph Text</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    p {
+      font-size: 20px;
+      color: #2c3e50;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #e67e22;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d35400;
+    }
+  </style>
+</head>
+<body>
+
+  <p id="myPara">This is the original paragraph text.</p>
+  <button onclick="changeText()">Change Text</button>
+
+  <script>
+    function changeText() {
+      document.getElementById("myPara").textContent = "✨ The paragraph text changed!";
+    }
+  </script>
+
+</body>
+</html>

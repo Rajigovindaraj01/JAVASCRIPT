@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 40px;
+}
+
+h2 {
+  color: #333;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  width: 300px;
+  margin: 20px auto;
+}
+
+li {
+  background-color: #ffffff;
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+li:hover {
+  background-color: #e6f7ff;
+  transform: scale(1.02);
+}
+
+input[type="text"] {
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #00b894;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 8px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #019875;
+}
+
+    </style>
+</head>
+<body>
+    <h2>📝 My List</h2>
+    <input type="text" id="userInput" placeholder="Enter new item">
+    <button onclick="addListItem()">Add Item</button>
+    <ul id="myList">
+      <li>🚀 First Item</li>
+      <li>🌟 Second Item</li>
+    </ul>
+<script>
+    function addListItem() {
+    let value = document.getElementById("userInput").value;
+
+    if (value.trim() !== "") {
+      let newItem = document.createElement("li");
+      newItem.textContent = value;
+
+      document.getElementById("myList").appendChild(newItem);
+      document.getElementById("userInput").value = "";
+    } else {
+      alert("Please enter a value!");
+    }
+  }
+</script>
+</body>
+</html>

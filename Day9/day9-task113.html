@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task113-day9</title>
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background: linear-gradient(to right, #fff3e0, #ffe0b2);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 50px 20px;
+        }
+    
+        h1 {
+          color: #d84315;
+          margin-bottom: 30px;
+        }
+    
+        img {
+          width: 300px;
+          border-radius: 15px;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+          transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task-Js113</h1>
+    <img id="cake" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT8SSK9YmRhecLf2Skjxn0wW89zEjqQfhAKg&s" alt="Cake">
+
+
+    <script>
+        let image = document.getElementById("cake");
+        image.addEventListener("mouseover",function(){
+            image.style.border="5px solid black";
+            image.style.transform="scale(1.05)";
+            image.style.cursor="pointer";
+        })
+
+        image.addEventListener("mouseout",function(){
+            image.style.border="none";
+            image.style.transform="scale(1)"
+        })
+    </script>
+</body>
+</html>

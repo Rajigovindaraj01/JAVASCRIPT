@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task111-day9</title>
+    <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fff);
+      color: #2e7d32;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px #a5d6a7;
+    }
+
+    .container {
+      max-width: 900px;
+      text-align: center;
+    }
+
+    #naturePara {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      transition: font-size 3s ease-in-out;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #00bcd4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #0097a7;
+      transform: scale(1.05);
+    }
+    </style>
+</head>
+<body>
+    <h1>JS111 - The Beauty of Nature</h1>
+
+    <div class="container">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" alt="Nature">
+  
+      <p id="naturePara">
+        Nature is the art of God. It surrounds us with breathtaking landscapes, calming forests, vibrant flowers,
+        and the rhythmic sounds of chirping birds and flowing rivers. It brings peace to our minds and refreshes our souls.
+        Protecting and appreciating nature is not just a choice, but a responsibility we all share.
+      </p>
+  
+      <button id="changeFontBtn">Change Font Size</button>
+    </div>
+
+
+    <script>
+        let btn=document.getElementById("changeFontBtn");
+        let para = document.getElementById("naturePara");
+        btn.addEventListener("click",function(){
+            para.style.fontSize="25px"
+        })
+    </script>
+</body>
+</html>

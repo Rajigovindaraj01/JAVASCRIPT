@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Employees List</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    margin: 40px auto;
+    max-width: 600px;
+    padding: 0 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    user-select: none;
+  }
+  .employee-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+  .employee-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 24px rgba(0,0,0,0.15);
+  }
+  .employee-info {
+    display: flex;
+    flex-direction: column;
+  }
+  .name {
+    font-weight: 700;
+    font-size: 20px;
+    color: #ff6f61;
+  }
+  .position {
+    color: #777;
+    font-style: italic;
+    margin-top: 4px;
+  }
+  .age {
+    background: #ff6f61;
+    color: white;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    user-select: none;
+    box-shadow: 0 4px 8px rgba(255,111,97,0.3);
+  }
+</style>
+</head>
+<body>
+
+<h1>Our Team</h1>
+
+<div id="employeeList"></div>
+
+<script>
+  const employees = [
+    { name: "Raji", age: 23, position: "Developer" },
+    { name: "Anu", age: 25, position: "Designer" },
+    { name: "Preethi", age: 28, position: "Product Manager" },
+    { name: "Swathi", age: 32, position: "QA Engineer" }
+  ];
+
+  const container = document.getElementById('employeeList');
+
+  employees.forEach(emp => {
+    const card = document.createElement('div');
+    card.className = 'employee-card';
+
+    card.innerHTML = `
+      <div class="employee-info">
+        <div class="name">${emp.name}</div>
+        <div class="position">${emp.position}</div>
+      </div>
+      <div class="age">${emp.age} yrs</div>
+    `;
+
+    container.appendChild(card);
+  });
+</script>
+
+</body>
+</html>

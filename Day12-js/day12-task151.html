@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Modify Object in Array</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 480px;
+    margin: 40px auto;
+    background: #f0f4f8;
+    padding: 20px;
+    color: #2c3e50;
+  }
+  h1 {
+    text-align: center;
+    color: #34495e;
+    user-select: none;
+  }
+  pre {
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 8px #bdc3c7;
+    font-size: 16px;
+  }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 22px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(41, 128, 185, 0.5);
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #1c5980;
+  }
+</style>
+</head>
+<body>
+
+<h1>Modify Object in Array</h1>
+
+<h3>Original Array:</h3>
+<pre id="original"></pre>
+
+<h3>Updated Array:</h3>
+<pre id="updated"></pre>
+
+<button id="modifyBtn">Modify Age of Employee "Jane"</button>
+
+<script>
+  const employees = [
+    { name: "Raji", age: 28, position: "Developer" },
+    { name: "Maha", age: 34, position: "Manager" },
+    { name: "Yazhini", age: 24, position: "Designer" }
+  ];
+
+  const originalEl = document.getElementById('original');
+  const updatedEl = document.getElementById('updated');
+  const button = document.getElementById('modifyBtn');
+
+  // Display original array
+  originalEl.textContent = JSON.stringify(employees, null, 2);
+  updatedEl.textContent = 'No changes yet.';
+
+  button.addEventListener('click', () => {
+    // Find the employee named "Jane"
+    const jane = employees.find(emp => emp.name === 'Jane');
+    if (jane) {
+      jane.age = 35; // Update Jane's age
+    }
+
+    // Show updated array
+    updatedEl.textContent = JSON.stringify(employees, null, 2);
+  });
+</script>
+
+</body>
+</html>

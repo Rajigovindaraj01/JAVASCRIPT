@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Object to Array</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #fceabb, #f8b500);
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+    }
+
+    .form-container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #f8b500;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #f8b500;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #e09e00;
+    }
+
+    .item-list {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .item {
+      background: white;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-left: 6px solid #f8b500;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>➕ Add New Product</h1>
+
+  <div class="form-container">
+    <input type="text" id="productId" placeholder="Enter ID">
+    <input type="text" id="productName" placeholder="Enter Product Name">
+    <button onclick="addProduct()">Add Product</button>
+  </div>
+
+  <div class="item-list" id="productList"></div>
+
+  <script>
+    let products = [];
+
+    function addProduct() {
+      const id = document.getElementById('productId').value.trim();
+      const name = document.getElementById('productName').value.trim();
+
+      if (id && name) {
+        const newProduct = { id: parseInt(id), name };
+        products.push(newProduct);
+        displayProducts();
+        document.getElementById('productId').value = '';
+        document.getElementById('productName').value = '';
+      } else {
+        alert("Please enter both ID and Product Name!");
+      }
+    }
+
+    function displayProducts() {
+      const list = document.getElementById('productList');
+      list.innerHTML = '';
+      products.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.textContent = `ID: ${product.id}, Name: ${product.name}`;
+        list.appendChild(div);
+      });
+    }
+  </script>
+
+</body>
+</html>

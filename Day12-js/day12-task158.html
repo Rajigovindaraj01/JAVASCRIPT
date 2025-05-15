@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Highest Priced Product</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #80deea);
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00796b;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .btn {
+      margin-top: 20px;
+      background-color: #00796b;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #004d40;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e0f2f1;
+      border-left: 5px solid #00796b;
+      border-radius: 8px;
+      font-size: 18px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏆 Highest Priced Product</h1>
+
+  <div class="container">
+    <button class="btn" onclick="findHighestPrice()">Find Highest</button>
+    <div class="result" id="resultBox"></div>
+  </div>
+
+  <script>
+    const products = [
+      { id: 1, name: "Pen", price: 10 },
+      { id: 2, name: "Notebook", price: 50 },
+      { id: 3, name: "Bag", price: 500 },
+      { id: 4, name: "Pencil", price: 5 }
+    ];
+
+    function findHighestPrice() {
+      const highest = products.reduce((max, item) => item.price > max.price ? item : max);
+      const resultBox = document.getElementById("resultBox");
+      resultBox.innerHTML = `
+        <strong>${highest.name}</strong> (ID: ${highest.id})<br>
+        💰 Price: ₹${highest.price}
+      `;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Library Book Management System</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(120deg, #f3e5f5, #e1bee7);
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #6a1b9a;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    input, select, button {
+      padding: 8px;
+      margin: 5px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #8e24aa;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #4a148c;
+    }
+
+    .section {
+      margin-top: 25px;
+    }
+
+    .result, .list {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f3e5f5;
+      border-left: 5px solid #8e24aa;
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      background: #e1bee7;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>📖 Library Book Management</h1>
+  <div class="container">
+
+    <!-- 1. Add Book -->
+    <div class="section">
+      <h3>➕ Add Book</h3>
+      <input type="text" id="bookId" placeholder="Book ID" />
+      <input type="text" id="title" placeholder="Title" />
+      <input type="text" id="author" placeholder="Author" />
+      <input type="text" id="genre" placeholder="Genre" />
+      <button onclick="addBook()">Add Book</button>
+    </div>
+
+    <!-- 2. Search Book -->
+    <div class="section">
+      <h3>🔍 Search Book</h3>
+      <input type="text" id="searchBook" placeholder="Enter Title, Author, or Genre" />
+      <button onclick="searchBook()">Search</button>
+      <div class="result" id="searchResult"></div>
+    </div>
+
+    <!-- 3. Issue or Return -->
+    <div class="section">
+      <h3>📚 Issue / Return Book</h3>
+      <input type="text" id="issueBookId" placeholder="Book ID" />
+      <input type="text" id="borrower" placeholder="Borrower Name" />
+      <button onclick="issueBook()">Issue</button>
+      <button onclick="returnBook()">Return</button>
+    </div>
+
+    <!-- 4. Available Books -->
+    <div class="section">
+      <h3>✅ Available Books</h3>
+      <button onclick="listAvailable()">List Available Books</button>
+      <div class="list" id="availableList"></div>
+    </div>
+
+    <!-- 5. Full Book Table -->
+    <div class="section">
+      <h3>📋 All Books</h3>
+      <div class="list" id="bookList"></div>
+    </div>
+  </div>
+
+  <script>
+    let books = [];
+
+    function addBook() {
+      const bookId = document.getElementById("bookId").value;
+      const title = document.getElementById("title").value;
+      const author = document.getElementById("author").value;
+      const genre = document.getElementById("genre").value;
+
+      if (!bookId || !title || !author || !genre) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      books.push({ bookId, title, author, genre, available: true, borrower: "" });
+      clearFields();
+      showAllBooks();
+    }
+
+    function issueBook() {
+      const id = document.getElementById("issueBookId").value;
+      const borrower = document.getElementById("borrower").value;
+
+      const book = books.find(b => b.bookId === id);
+      if (book) {
+        if (book.available) {
+          book.available = false;
+          book.borrower = borrower;
+          alert(`Book "${book.title}" issued to ${borrower}`);
+        } else {
+          alert("Book is already borrowed.");
+        }
+      } else {
+        alert("Book not found.");
+      }
+      showAllBooks();
+    }
+
+    function returnBook() {
+      const id = document.getElementById("issueBookId").value;
+      const book = books.find(b => b.bookId === id);
+      if (book) {
+        if (!book.available) {
+          book.available = true;
+          book.borrower = "";
+          alert(`Book "${book.title}" returned successfully.`);
+        } else {
+          alert("Book is not borrowed.");
+        }
+      } else {
+        alert("Book not found.");
+      }
+      showAllBooks();
+    }
+
+    function searchBook() {
+      const input = document.getElementById("searchBook").value.toLowerCase();
+      const result = books.filter(
+        b =>
+          b.title.toLowerCase().includes(input) ||
+          b.author.toLowerCase().includes(input) ||
+          b.genre.toLowerCase().includes(input)
+      );
+
+      const box = document.getElementById("searchResult");
+      if (result.length) {
+        box.innerHTML = `
+          <table>
+            <tr><th>ID</th><th>Title</th><th>Author</th><th>Genre</th><th>Status</th></tr>
+            ${result
+              .map(
+                b => `<tr>
+                  <td>${b.bookId}</td>
+                  <td>${b.title}</td>
+                  <td>${b.author}</td>
+                  <td>${b.genre}</td>
+                  <td>${b.available ? "Available" : `Borrowed by ${b.borrower}`}</td>
+                </tr>`
+              )
+              .join("")}
+          </table>
+        `;
+      } else {
+        box.innerHTML = "❌ No books found.";
+      }
+    }
+
+    function listAvailable() {
+      const available = books.filter(b => b.available);
+      const box = document.getElementById("availableList");
+      if (available.length) {
+        box.innerHTML = `
+          <table>
+            <tr><th>ID</th><th>Title</th><th>Author</th><th>Genre</th></tr>
+            ${available
+              .map(
+                b => `<tr>
+                  <td>${b.bookId}</td>
+                  <td>${b.title}</td>
+                  <td>${b.author}</td>
+                  <td>${b.genre}</td>
+                </tr>`
+              )
+              .join("")}
+          </table>
+        `;
+      } else {
+        box.innerHTML = "📕 No books available at the moment.";
+      }
+    }
+
+    function showAllBooks() {
+      const box = document.getElementById("bookList");
+      if (books.length) {
+        box.innerHTML = `
+          <table>
+            <tr><th>ID</th><th>Title</th><th>Author</th><th>Genre</th><th>Status</th></tr>
+            ${books
+              .map(
+                b => `<tr>
+                  <td>${b.bookId}</td>
+                  <td>${b.title}</td>
+                  <td>${b.author}</td>
+                  <td>${b.genre}</td>
+                  <td>${b.available ? "Available" : `Borrowed by ${b.borrower}`}</td>
+                </tr>`
+              )
+              .join("")}
+          </table>
+        `;
+      } else {
+        box.innerHTML = "No books in the library.";
+      }
+    }
+
+    function clearFields() {
+      ["bookId", "title", "author", "genre", "issueBookId", "borrower"].forEach(id => {
+        document.getElementById(id).value = "";
+      });
+    }
+  </script>
+</body>
+</html>

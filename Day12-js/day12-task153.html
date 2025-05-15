@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Search</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      padding: 40px 20px;
+      max-width: 500px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2d3436;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .result {
+      background: #dff9fb;
+      border-left: 4px solid #00cec9;
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin: 8px 0;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .no-result {
+      color: #d63031;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔍 Search Employees by Name</h2>
+  <input type="text" id="searchInput" placeholder="Type a name..." />
+
+  <div id="results"></div>
+
+  <script>
+    const employees = [
+      { name: "Moni", age: 25, role: "Designer" },
+      { name: "Raji", age: 23, role: "Developer" },
+      { name: "Sri", age: 28, role: "Manager" },
+      { name: "Preetha", age: 35, role: "Developer" },
+      { name: "swathi", age: 30, role: "QA" }
+    ];
+
+    const input = document.getElementById('searchInput');
+    const resultsDiv = document.getElementById('results');
+
+    input.addEventListener('input', function () {
+      const query = this.value.trim().toLowerCase();
+      resultsDiv.innerHTML = '';
+
+      const filtered = employees.filter(emp =>
+        emp.name.toLowerCase().includes(query)
+      );
+
+      if (filtered.length === 0) {
+        resultsDiv.innerHTML = `<div class="no-result">No matching employees found.</div>`;
+      } else {
+        filtered.forEach(emp => {
+          const div = document.createElement('div');
+          div.className = 'result';
+          div.textContent = `${emp.name} - ${emp.role} (Age: ${emp.age})`;
+          resultsDiv.appendChild(div);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Extract Names from Objects</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 480px;
+    margin: 40px auto;
+    background: #eef6f9;
+    padding: 20px;
+    color: #1a202c;
+  }
+  h1 {
+    text-align: center;
+    color: #2b6cb0;
+    user-select: none;
+  }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 22px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(43, 108, 176, 0.4);
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #234d7a;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+  }
+  li {
+    background: #bee3f8;
+    padding: 10px 15px;
+    margin: 8px 0;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(43, 108, 176, 0.3);
+  }
+</style>
+</head>
+<body>
+
+<h1>Employee Names</h1>
+<button id="extractBtn">Show Names</button>
+
+<ul id="nameList"></ul>
+
+<script>
+  const employees = [
+    { name: "Raji", age: 28, position: "Developer" },
+    { name: "Raaj", age: 34, position: "Manager" },
+    { name: "Maha", age: 24, position: "Designer" },
+    { name: "Yazhini", age: 30, position: "QA Engineer" }
+  ];
+
+  const button = document.getElementById('extractBtn');
+  const nameList = document.getElementById('nameList');
+
+  button.addEventListener('click', function() {
+    // Extract names using map
+    const names = employees.map(emp => emp.name);
+
+    // Clear previous list if any
+    nameList.innerHTML = '';
+
+    // Display names
+    names.forEach(name => {
+      const li = document.createElement('li');
+      li.textContent = name;
+      nameList.appendChild(li);
+    });
+  });
+</script>
+
+</body>
+</html>

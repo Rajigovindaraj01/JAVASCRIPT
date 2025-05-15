@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Count Objects by Condition</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 480px;
+    margin: 40px auto;
+    background: #fafafa;
+    padding: 20px;
+    color: #2d3436;
+    text-align: center;
+  }
+  h1 {
+    color: #0984e3;
+    user-select: none;
+  }
+  button {
+    background: #0984e3;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(9, 132, 227, 0.4);
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background: #065aab;
+  }
+  #result {
+    margin-top: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #636e72;
+  }
+  pre {
+    background: #dfe6e9;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    max-height: 160px;
+    overflow-y: auto;
+  }
+</style>
+</head>
+<body>
+
+<h1>Count Employees Older Than 30</h1>
+
+<pre id="data"></pre>
+
+<button id="countBtn">Count Employees</button>
+
+<div id="result">Click the button to see the count!</div>
+
+<script>
+  const employees = [
+    { name: "raji", age: 23, position: "Developer" },
+    { name: "john", age: 34, position: "Manager" },
+    { name: "devi", age: 24, position: "Designer" },
+    { name: "Preethi", age: 41, position: "CEO" },
+    { name: "jancy", age: 29, position: "Developer" }
+  ];
+
+  const dataEl = document.getElementById('data');
+  const resultEl = document.getElementById('result');
+  const button = document.getElementById('countBtn');
+
+  // Show the data array on page load
+  dataEl.textContent = JSON.stringify(employees, null, 2);
+
+  button.addEventListener('click', () => {
+    const count = employees.filter(emp => emp.age > 30).length;
+    resultEl.textContent = `Number of employees older than 30: ${count}`;
+  });
+</script>
+
+</body>
+</html>

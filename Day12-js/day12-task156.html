@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Remove Item by Property</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f0f8ff, #e6f7ff);
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007acc;
+    }
+
+    #itemList {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    .item {
+      padding: 12px 20px;
+      background: #fff;
+      border: 2px solid #007acc;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .item:hover {
+      transform: scale(1.02);
+      background-color: #e6f7ff;
+    }
+
+    button {
+      background-color: #ff4d4f;
+      border: none;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #d9363e;
+    }
+
+    .empty {
+      text-align: center;
+      color: gray;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📦 Remove Product by ID</h1>
+
+  <div id="itemList"></div>
+
+  <script>
+    let items = [
+      { id: 1, name: "Pen" },
+      { id: 2, name: "Pencil" },
+      { id: 3, name: "Eraser" },
+      { id: 4, name: "Sharpener" }
+    ];
+
+    const itemList = document.getElementById("itemList");
+
+    function renderItems() {
+      itemList.innerHTML = '';
+      if (items.length === 0) {
+        itemList.innerHTML = '<p class="empty">No items left 🗑️</p>';
+        return;
+      }
+
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = `
+          <span><strong>${item.name}</strong> (ID: ${item.id})</span>
+          <button onclick="removeItem(${item.id})">Remove</button>
+        `;
+        itemList.appendChild(div);
+      });
+    }
+
+    function removeItem(id) {
+      items = items.filter(item => item.id !== id);
+      renderItems();
+    }
+
+    renderItems();
+  </script>
+
+</body>
+</html>

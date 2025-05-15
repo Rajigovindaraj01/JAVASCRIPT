@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Filter Students by Grade 'A'</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 480px;
+    margin: 50px auto;
+    background: #f0f4f8;
+    padding: 20px;
+    color: #333;
+  }
+  h1 {
+    text-align: center;
+    color: #2c7a7b;
+    user-select: none;
+  }
+  button {
+    background-color: #2c7a7b;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(44, 122, 123, 0.4);
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #285e5e;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    background: #e6fffa;
+    margin: 10px 0;
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(44, 122, 123, 0.2);
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Students with Grade 'A'</h1>
+<button id="showAStudents">Show Grade A Students</button>
+
+<ul id="studentList"></ul>
+
+<script>
+  const students = [
+    { name: "Raji", grade: "A" },
+    { name: "Isha", grade: "B" },
+    { name: "Irfu", grade: "A" },
+    { name: "Moni", grade: "C" },
+    { name: "Vidhya", grade: "A" }
+  ];
+
+  const button = document.getElementById('showAStudents');
+  const studentList = document.getElementById('studentList');
+
+  button.addEventListener('click', function() {
+    // Filter students with grade 'A'
+    const aStudents = students.filter(student => student.grade === 'A');
+
+    // Clear list before adding
+    studentList.innerHTML = '';
+
+    // Add filtered students to the list
+    if(aStudents.length === 0) {
+      studentList.innerHTML = '<li>No students with grade A found.</li>';
+      return;
+    }
+
+    aStudents.forEach(student => {
+      const li = document.createElement('li');
+      li.textContent = `${student.name} — Grade: ${student.grade}`;
+      studentList.appendChild(li);
+    });
+  });
+</script>
+
+</body>
+</html>

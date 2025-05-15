@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Group by Property</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .group {
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .group h2 {
+      color: #007BFF;
+    }
+
+    .person {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Grouped People by City</h1>
+  <div id="result"></div>
+
+  <script>
+    const people = [
+      { name: "Alice", city: "New York" },
+      { name: "Bob", city: "London" },
+      { name: "Charlie", city: "New York" },
+      { name: "David", city: "Paris" },
+      { name: "Eve", city: "London" }
+    ];
+
+    function groupBy(arr, property) {
+      return arr.reduce((acc, obj) => {
+        const key = obj[property];
+        if (!acc[key]) acc[key] = [];
+        acc[key].push(obj);
+        return acc;
+      }, {});
+    }
+
+    const grouped = groupBy(people, "city");
+
+    const resultDiv = document.getElementById("result");
+
+    for (const city in grouped) {
+      const groupDiv = document.createElement("div");
+      groupDiv.className = "group";
+
+      const heading = document.createElement("h2");
+      heading.textContent = city;
+      groupDiv.appendChild(heading);
+
+      grouped[city].forEach(person => {
+        const personDiv = document.createElement("div");
+        personDiv.className = "person";
+        personDiv.textContent = `Name: ${person.name}`;
+        groupDiv.appendChild(personDiv);
+      });
+
+      resultDiv.appendChild(groupDiv);
+    }
+  </script>
+</body>
+</html>

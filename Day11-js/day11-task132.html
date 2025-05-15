@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>day11-task132</title>
+    <style>
+    body {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffffdd;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.6s ease-out;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      border: 2px solid #0072ff;
+      border-radius: 10px;
+      outline: none;
+      font-size: 16px;
+      margin-bottom: 15px;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      box-shadow: 0 0 10px #0072ff;
+    }
+
+    .buttons button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #saveBtn {
+      background-color: #00c6ff;
+      color: white;
+    }
+
+    #getBtn {
+      background-color: #0072ff;
+      color: white;
+    }
+
+    .buttons button:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    #output {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    </style>
+</head>
+<body>
+    <!-- JS132. Store and retrieve a username using LocalStorage. -->
+
+      <div class="container">
+    <h2>🌟 Save Your Username 🌟</h2>
+    <input type="text" id="usernameInput" placeholder="Enter your username" />
+    <div class="buttons">
+      <button id="saveBtn">💾 Save</button>
+      <button id="getBtn">📥 Retrieve</button>
+    </div>
+    <p id="output"></p>
+  </div>
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const saveBtn = document.getElementById("saveBtn");
+      const getBtn = document.getElementById("getBtn");
+      const input = document.getElementById("usernameInput");
+      const output = document.getElementById("output");
+
+      saveBtn.addEventListener("click", () => {
+        const username = input.value.trim();
+        if (username) {
+          localStorage.setItem("username", username);
+          output.textContent = `✅ Username "${username}" saved successfully!`;
+          input.value = "";
+        } else {
+          output.textContent = "⚠️ Please enter a valid username.";
+        }
+      });
+
+      getBtn.addEventListener("click", () => {
+        const saved = localStorage.getItem("username");
+        output.textContent = saved
+          ? `📦 Stored Username: ${saved}`
+          : "❌ No username found in LocalStorage.";
+      });
+    });
+  </script>
+
+</body>
+</html>

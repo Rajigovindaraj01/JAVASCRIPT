@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>JS Object to JSON String & Store</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #eef2f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    width: 350px;
+    text-align: center;
+  }
+  button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  pre {
+    background: #f4f6f8;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Store JS Object as JSON</h2>
+    <button id="storeBtn">Store Object</button>
+    <pre id="output"></pre>
+  </div>
+
+  <script>
+    const storeBtn = document.getElementById('storeBtn');
+    const output = document.getElementById('output');
+
+    const user = {
+      name: "Alice",
+      age: 30,
+      email: "alice@example.com",
+      interests: ["reading", "traveling", "coding"]
+    };
+
+    storeBtn.addEventListener('click', () => {
+      // Convert object to JSON string
+      const jsonString = JSON.stringify(user, null, 2); // pretty print with 2 spaces
+
+      // Store JSON string in localStorage
+      localStorage.setItem('userData', jsonString);
+
+      // Display JSON string on page
+      output.textContent = `Stored JSON string in localStorage:\n${jsonString}`;
+    });
+  </script>
+
+</body>
+</html>

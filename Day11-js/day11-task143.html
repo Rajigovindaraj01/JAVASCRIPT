@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Page Visit Counter</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .counter-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .counter-box:hover {
+      transform: scale(1.05);
+    }
+    h2 {
+      color: #333;
+    }
+    p {
+      font-size: 24px;
+      color: #007bff;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="counter-box">
+    <h2>👋 Welcome Back!</h2>
+    <p>You have visited this page <span id="visitCount">0</span> times.</p>
+  </div>
+
+  <script>
+    const visitDisplay = document.getElementById('visitCount');
+
+    // Get visit count from localStorage or initialize
+    let visits = localStorage.getItem('pageVisits');
+
+    if (!visits) {
+      visits = 1;
+    } else {
+      visits = parseInt(visits) + 1;
+    }
+
+    // Store updated visit count
+    localStorage.setItem('pageVisits', visits);
+
+    // Display it
+    visitDisplay.textContent = visits;
+  </script>
+
+</body>
+</html>

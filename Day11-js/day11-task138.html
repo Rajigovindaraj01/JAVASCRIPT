@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Click Counter</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f4f8;
+      margin: 0;
+    }
+    .counter-box {
+      background: white;
+      padding: 40px 60px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      font-size: 48px;
+      margin: 0 0 20px;
+      color: #333;
+    }
+    button {
+      padding: 15px 40px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .reset-btn {
+      margin-top: 15px;
+      background-color: #dc3545;
+    }
+    .reset-btn:hover {
+      background-color: #a71d2a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="counter-box">
+    <h1 id="count">0</h1>
+    <button id="clickBtn">Click Me!</button>
+    <button id="resetBtn" class="reset-btn">Reset</button>
+  </div>
+
+  <script>
+    const countEl = document.getElementById('count');
+    const clickBtn = document.getElementById('clickBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    // Load count from localStorage or start at 0
+    let count = localStorage.getItem('clickCount') 
+      ? parseInt(localStorage.getItem('clickCount')) 
+      : 0;
+
+    countEl.textContent = count;
+
+    // Increment count and save
+    clickBtn.addEventListener('click', () => {
+      count++;
+      localStorage.setItem('clickCount', count);
+      countEl.textContent = count;
+    });
+
+    // Reset count
+    resetBtn.addEventListener('click', () => {
+      count = 0;
+      localStorage.removeItem('clickCount');
+      countEl.textContent = count;
+    });
+  </script>
+
+</body>
+</html>

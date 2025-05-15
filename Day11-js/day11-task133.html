@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>day11-task133</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    .container {
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dark-mode {
+      background-color: #1e1e1e;
+      color: #f2f2f2;
+    }
+
+    .light-mode {
+      background-color: #f2f2f2;
+      color: #1e1e1e;
+    }
+
+    .dark-button {
+      background-color: #444;
+      color: white;
+    }
+
+    .light-button {
+      background-color: #ddd;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌗 Dark/Light Mode Example</h1>
+    <button id="toggleBtn">Toggle Theme</button>
+  </div>
+
+  <script>
+    const body = document.body;
+    const toggleBtn = document.getElementById('toggleBtn');
+
+    // Load saved theme from localStorage
+    function loadTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        setDarkMode();
+      } else {
+        setLightMode();
+      }
+    }
+
+    // Set dark mode
+    function setDarkMode() {
+      body.classList.add('dark-mode');
+      body.classList.remove('light-mode');
+      toggleBtn.classList.add('dark-button');
+      toggleBtn.classList.remove('light-button');
+      localStorage.setItem('theme', 'dark');
+    }
+
+    // Set light mode
+    function setLightMode() {
+      body.classList.add('light-mode');
+      body.classList.remove('dark-mode');
+      toggleBtn.classList.add('light-button');
+      toggleBtn.classList.remove('dark-button');
+      localStorage.setItem('theme', 'light');
+    }
+
+    // Toggle between themes
+    toggleBtn.addEventListener('click', () => {
+      if (body.classList.contains('dark-mode')) {
+        setLightMode();
+      } else {
+        setDarkMode();
+      }
+    });
+
+    // Initialize theme on page load
+    loadTheme();
+  </script>
+</body>
+</html>

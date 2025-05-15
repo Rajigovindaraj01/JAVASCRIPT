@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Survey Form with SessionStorage</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      width: 100%;
+      border: none;
+      background: #007bff;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .saved {
+      margin-top: 15px;
+      padding: 10px;
+      background: #e0ffe0;
+      color: #2e7d32;
+      border-radius: 6px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Feedback Survey</h2>
+    <form id="surveyForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" />
+
+      <label for="rating">Rating:</label>
+      <select id="rating">
+        <option value="">Select</option>
+        <option value="Excellent">Excellent</option>
+        <option value="Good">Good</option>
+        <option value="Average">Average</option>
+        <option value="Poor">Poor</option>
+      </select>
+
+      <label for="comments">Comments:</label>
+      <textarea id="comments" rows="4"></textarea>
+
+      <button type="button" id="saveBtn">Save Response</button>
+      <div class="saved" id="message">Your response has been saved!</div>
+    </form>
+  </div>
+
+  <script>
+    const saveBtn = document.getElementById('saveBtn');
+    const message = document.getElementById('message');
+
+    saveBtn.addEventListener('click', () => {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const rating = document.getElementById('rating').value;
+      const comments = document.getElementById('comments').value;
+
+      const response = {
+        name,
+        email,
+        rating,
+        comments
+      };
+
+      // Save the response in SessionStorage as JSON string
+      sessionStorage.setItem('surveyResponse', JSON.stringify(response));
+
+      message.style.display = 'block';
+    });
+
+    // Restore form values if they exist
+    const saved = sessionStorage.getItem('surveyResponse');
+    if (saved) {
+      const data = JSON.parse(saved);
+      document.getElementById('name').value = data.name || '';
+      document.getElementById('email').value = data.email || '';
+      document.getElementById('rating').value = data.rating || '';
+      document.getElementById('comments').value = data.comments || '';
+    }
+  </script>
+
+</body>
+</html>

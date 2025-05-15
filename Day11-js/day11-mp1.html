@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Stopwatch</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f8ff, #add8e6);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .stopwatch {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    #timer {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #startBtn { background: green; }
+    #stopBtn { background: orange; }
+    #resetBtn { background: red; }
+  </style>
+</head>
+<body>
+
+  <div class="stopwatch">
+    <div id="timer">00:00:00</div>
+    <button id="startBtn">Start</button>
+    <button id="stopBtn">Stop</button>
+    <button id="resetBtn">Reset</button>
+  </div>
+
+  <script>
+    let startTime = sessionStorage.getItem("startTime");
+    let running = sessionStorage.getItem("running") === "true";
+    let elapsed = parseInt(sessionStorage.getItem("elapsed")) || 0;
+    let timer;
+
+    function updateDisplay(ms) {
+      let totalSeconds = parseInt(ms / 1000);
+      let hours = (totalSeconds / 3600) | 0;
+      let minutes = ((totalSeconds % 3600) / 60) | 0;
+      let seconds = totalSeconds % 60;
+
+      let h = (hours < 10 ? "0" : "") + hours;
+      let m = (minutes < 10 ? "0" : "") + minutes;
+      let s = (seconds < 10 ? "0" : "") + seconds;
+      document.getElementById("timer").textContent = h + ":" + m + ":" + s;
+    }
+
+    function startTimer() {
+      if (!running) {
+        running = true;
+        startTime = new Date().getTime() - elapsed;
+        sessionStorage.setItem("startTime", startTime);
+        sessionStorage.setItem("running", "true");
+
+        timer = setInterval(() => {
+          elapsed = new Date().getTime() - startTime;
+          sessionStorage.setItem("elapsed", elapsed);
+          updateDisplay(elapsed);
+        }, 1000);
+      }
+    }
+
+    function stopTimer() {
+      if (running) {
+        clearInterval(timer);
+        running = false;
+        sessionStorage.setItem("running", "false");
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      running = false;
+      elapsed = 0;
+      sessionStorage.clear();
+      updateDisplay(0);
+    }
+
+    // Restore state
+    if (running) {
+      startTimer();
+    } else {
+      updateDisplay(elapsed);
+    }
+
+    document.getElementById("startBtn").addEventListener("click", startTimer);
+    document.getElementById("stopBtn").addEventListener("click", stopTimer);
+    document.getElementById("resetBtn").addEventListener("click", resetTimer);
+  </script>
+</body>
+</html>

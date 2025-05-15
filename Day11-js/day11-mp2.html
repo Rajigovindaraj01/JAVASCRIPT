@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Notes App Fixed</title>
+<style>
+  body {
+    background: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 40px 20px;
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  h2 {
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+    user-select: none;
+  }
+
+  textarea {
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    resize: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+
+  textarea:focus {
+    border-color: #ff7f50;
+    outline: none;
+  }
+
+  button {
+    background: #ff7f50;
+    color: white;
+    border: none;
+    padding: 14px 0;
+    font-size: 18px;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 5px 12px rgba(255, 127, 80, 0.5);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    user-select: none;
+  }
+
+  button:hover {
+    background: #e76b3f;
+    box-shadow: 0 7px 16px rgba(231, 107, 63, 0.6);
+  }
+
+  #notes {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .note {
+    background: #fff3e0;
+    padding: 14px 50px 14px 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    font-size: 16px;
+    color: #333;
+    word-wrap: break-word;
+    user-select: text;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .note.removing {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, height 0.5s ease, margin 0.5s ease, padding 0.5s ease;
+  }
+
+  .delete-btn {
+    background: #ff4c4c;
+    width: 50px;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(255, 0, 0, 0.3);
+    transition: background-color 0.3s;
+    user-select: none;
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  .delete-btn:hover {
+    background: #cc3b3b;
+  }
+</style>
+</head>
+<body>
+
+  <h2>📝 Notes App</h2>
+
+  <textarea id="note" placeholder="Type your note here..."></textarea>
+  <button onclick="addNote()">Add Note</button>
+
+  <div id="notes"></div>
+
+<script>
+  let notes = JSON.parse(localStorage.getItem('notes')) || [];
+  showNotes();
+
+  function addNote() {
+    const noteInput = document.getElementById('note');
+    const text = noteInput.value.trim();
+
+    if (text.length === 0) {
+      alert('Please enter a note!');
+      return;
+    }
+
+    notes.push(text);
+    localStorage.setItem('notes', JSON.stringify(notes));
+    noteInput.value = '';
+    showNotes();
+  }
+
+  function deleteNote(index) {
+    const noteElems = document.querySelectorAll('.note');
+    noteElems[index].classList.add('removing');
+
+    setTimeout(() => {
+      notes.splice(index, 1);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      showNotes();
+    }, 500);
+  }
+
+  function showNotes() {
+    const notesDiv = document.getElementById('notes');
+    notesDiv.innerHTML = '';
+
+    notes.forEach((note, index) => {
+      const noteEl = document.createElement('div');
+      noteEl.className = 'note';
+
+      // Text span to keep spacing correct
+      const noteText = document.createElement('span');
+      noteText.textContent = note;
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-btn';
+      delBtn.textContent = 'X';
+      delBtn.onclick = () => deleteNote(index);
+
+      noteEl.appendChild(noteText);
+      noteEl.appendChild(delBtn);
+      notesDiv.appendChild(noteEl);
+    });
+  }
+</script>
+
+</body>
+</html>

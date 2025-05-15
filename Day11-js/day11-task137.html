@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Last Visited Page</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+      color: #333;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+      color: #007bff;
+    }
+
+    .btn-group {
+      margin-top: 30px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-page {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-page:hover {
+      background-color: #0056b3;
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .last-page {
+      font-weight: bold;
+      color: #28a745;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Welcome Back 👋</h1>
+    <p>
+      <span id="lastVisited">You haven't visited any page yet.</span>
+    </p>
+
+    <div class="btn-group">
+      <button class="btn-page" data-page="Home">Home</button>
+      <button class="btn-page" data-page="About">About</button>
+      <button class="btn-page" data-page="Contact">Contact</button>
+    </div>
+
+    <p class="note">Click a button to simulate visiting a page.<br>
+    Your last visited page will be remembered across browser sessions.</p>
+  </div>
+
+  <script>
+    const lastVisited = localStorage.getItem('lastPage');
+    const lastVisitedSpan = document.getElementById('lastVisited');
+
+    if (lastVisited) {
+      lastVisitedSpan.innerHTML = `Last time, you visited the <span class="last-page">${lastVisited}</span> page.`;
+    }
+
+    const buttons = document.querySelectorAll('.btn-page');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const page = button.getAttribute('data-page');
+        localStorage.setItem('lastPage', page);
+        lastVisitedSpan.innerHTML = `Last time, you visited the <span class="last-page">${page}</span> page.`;
+        alert(`You have visited the ${page} page. This has been saved.`);
+      });
+    });
+  </script>
+
+</body>
+</html>

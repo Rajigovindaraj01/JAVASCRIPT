@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SessionStorage Form Saver</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e3f2fd;
+      padding: 50px;
+      text-align: center;
+    }
+
+    form {
+      background: white;
+      padding: 30px;
+      display: inline-block;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input {
+      display: block;
+      width: 250px;
+      margin: 10px auto;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #bbb;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="userForm">
+    <h2>Fill in your details</h2>
+    <input type="text" id="name" placeholder="Name" />
+    <input type="email" id="email" placeholder="Email" />
+    <button type="submit">Submit</button>
+    <p class="note">*Data is saved temporarily and will restore on reload*</p>
+  </form>
+
+  <script>
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const form = document.getElementById('userForm');
+
+    // Restore data on page load
+    nameInput.value = sessionStorage.getItem('name') || '';
+    emailInput.value = sessionStorage.getItem('email') || '';
+
+    // Save input values to sessionStorage on input
+    nameInput.addEventListener('input', () => {
+      sessionStorage.setItem('name', nameInput.value);
+    });
+
+    emailInput.addEventListener('input', () => {
+      sessionStorage.setItem('email', emailInput.value);
+    });
+
+    // Optional: Handle form submission
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert("Form submitted! (But values will still persist until tab is closed.)");
+    });
+  </script>
+
+</body>
+</html>

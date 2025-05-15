@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Persistent Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f9f9f9, #e3f2fd);
+      margin: 0;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .question h3 {
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      padding: 8px;
+      background: #f1f1f1;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    label:hover {
+      background: #dceefc;
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+    .btn {
+      display: block;
+      margin: 20px auto 0;
+      padding: 12px 25px;
+      background: #007bff;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    .saved-msg {
+      text-align: center;
+      color: green;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h2>Simple Quiz</h2>
+
+    <div class="question" id="q1">
+      <h3>1. What is the capital of France?</h3>
+      <label><input type="radio" name="q1" value="Paris" /> Paris</label>
+      <label><input type="radio" name="q1" value="London" /> London</label>
+      <label><input type="radio" name="q1" value="Berlin" /> Berlin</label>
+    </div>
+
+    <div class="question" id="q2">
+      <h3>2. Which planet is known as the Red Planet?</h3>
+      <label><input type="radio" name="q2" value="Mars" /> Mars</label>
+      <label><input type="radio" name="q2" value="Earth" /> Earth</label>
+      <label><input type="radio" name="q2" value="Venus" /> Venus</label>
+    </div>
+
+    <button class="btn" id="saveBtn">Save Answers</button>
+    <p class="saved-msg" id="msg">Answers saved in session!</p>
+  </div>
+
+  <script>
+    const saveBtn = document.getElementById('saveBtn');
+    const msg = document.getElementById('msg');
+
+    saveBtn.addEventListener('click', () => {
+      const answers = {
+        q1: document.querySelector('input[name="q1"]:checked')?.value || "",
+        q2: document.querySelector('input[name="q2"]:checked')?.value || ""
+      };
+
+      sessionStorage.setItem('quizAnswers', JSON.stringify(answers));
+      msg.style.display = 'block';
+    });
+
+    // Restore answers
+    const saved = sessionStorage.getItem('quizAnswers');
+    if (saved) {
+      const data = JSON.parse(saved);
+      if (data.q1) {
+        document.querySelector(`input[name="q1"][value="${data.q1}"]`).checked = true;
+      }
+      if (data.q2) {
+        document.querySelector(`input[name="q2"][value="${data.q2}"]`).checked = true;
+      }
+    }
+  </script>
+
+</body>
+</html>

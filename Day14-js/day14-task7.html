@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagination using Fetch API</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .posts {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px auto;
+      max-width: 600px;
+    }
+
+    .post {
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<h2>📄 Paginated Posts</h2>
+
+<div class="posts" id="postContainer"></div>
+
+<div class="pagination">
+  <button id="prevBtn" disabled>⬅ Prev</button>
+  <button id="nextBtn">Next ➡</button>
+</div>
+
+<script>
+  const postContainer = document.getElementById('postContainer');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  let currentPage = 1;
+  const postsPerPage = 10;
+
+  async function fetchPosts(page) {
+    const start = (page - 1) * postsPerPage + 1;
+    const url = `https://jsonplaceholder.typicode.com/posts?_start=${start - 1}&_limit=${postsPerPage}`;
+
+    try {
+      const res = await fetch(url);
+      const posts = await res.json();
+      displayPosts(posts);
+
+      // Disable Prev button if on first page
+      prevBtn.disabled = page === 1;
+      // Disable Next if less than postsPerPage fetched (means no more data)
+      nextBtn.disabled = posts.length < postsPerPage;
+    } catch (error) {
+      postContainer.innerHTML = `<p>Error fetching posts</p>`;
+    }
+  }
+
+  function displayPosts(posts) {
+    postContainer.innerHTML = "";
+    posts.forEach(post => {
+      const div = document.createElement('div');
+      div.className = 'post';
+      div.innerHTML = `<h3>${post.title}</h3><p>${post.body}</p>`;
+      postContainer.appendChild(div);
+    });
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      fetchPosts(currentPage);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    currentPage++;
+    fetchPosts(currentPage);
+  });
+
+  // Initial fetch
+  fetchPosts(currentPage);
+</script>
+
+</body>
+</html>

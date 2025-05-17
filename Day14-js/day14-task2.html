@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Posts List 📋</title>
+  <style>
+    body {
+      background: #eef2f7;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #3f51b5;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li.post {
+      background: #fff;
+      margin-bottom: 1rem;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(63,81,181,0.1);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    li.post:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 25px rgba(63,81,181,0.2);
+    }
+    .post-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #303f9f;
+    }
+    .post-body {
+      font-size: 0.95rem;
+      color: #555;
+    }
+    #loading {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Latest Posts</h1>
+  <ul id="postsList"></ul>
+  <p id="loading">Loading posts...</p>
+
+  <script>
+    const postsList = document.getElementById('postsList');
+    const loading = document.getElementById('loading');
+
+    async function fetchPosts() {
+      try {
+        const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const posts = await res.json();
+
+        loading.style.display = 'none';
+
+        posts.slice(0, 10).forEach(post => {
+          const li = document.createElement('li');
+          li.className = 'post';
+          li.innerHTML = `
+            <div class="post-title">${post.title}</div>
+            <div class="post-body">${post.body}</div>
+          `;
+          postsList.appendChild(li);
+        });
+      } catch (err) {
+        loading.textContent = 'Failed to load posts. Please try again later.';
+        console.error(err);
+      }
+    }
+
+    fetchPosts();
+  </script>
+</body>
+</html>

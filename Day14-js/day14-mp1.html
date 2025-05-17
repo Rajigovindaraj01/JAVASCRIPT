@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Typing Speed Tester</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0; padding: 0;
+  }
+  .container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  #sentence {
+    font-size: 1.4rem;
+    min-height: 60px;
+    margin-bottom: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.2);
+    user-select: none;
+  }
+  #inputBox {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    box-shadow: inset 0 0 5px rgba(255,255,255,0.4);
+    color: #111;
+  }
+  #inputBox::placeholder {
+    color: #999;
+  }
+  #result {
+    margin-top: 30px;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+  button {
+    margin-top: 30px;
+    background: #ff4081;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #e73370;
+  }
+  button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Typing Speed Tester</h1>
+  <div id="sentence">Loading sentence...</div>
+  <input
+    type="text"
+    id="inputBox"
+    placeholder="Start typing here..."
+    disabled
+    autocomplete="off"
+    autocorrect="off"
+    autocapitalize="off"
+    spellcheck="false"
+  />
+  <div id="result"></div>
+  <button id="resetBtn" disabled>Try New Sentence</button>
+</div>
+
+<script>
+  const sentenceDiv = document.getElementById('sentence');
+  const inputBox = document.getElementById('inputBox');
+  const resultDiv = document.getElementById('result');
+  const resetBtn = document.getElementById('resetBtn');
+
+  let startTime = null;
+  let currentSentence = '';
+
+  // Fetch random sentence from Advice Slip API (no-cache to avoid repeats)
+  async function fetchSentence() {
+    sentenceDiv.textContent = 'Loading sentence...';
+    inputBox.value = '';
+    inputBox.disabled = true;
+    resultDiv.textContent = '';
+    resetBtn.disabled = true;
+    startTime = null;
+
+    try {
+      const res = await fetch('https://api.adviceslip.com/advice', {cache: 'no-cache'});
+      if (!res.ok) throw new Error('Failed to fetch');
+      const data = await res.json();
+      currentSentence = data.slip.advice;
+      sentenceDiv.textContent = currentSentence;
+      inputBox.disabled = false;
+      inputBox.focus();
+      resetBtn.disabled = false;
+    } catch (err) {
+      sentenceDiv.textContent = 'Error fetching sentence. Please try again later.';
+      console.error(err);
+    }
+  }
+
+  // Calculate words per minute
+  function calculateWPM(text, seconds) {
+    const wordCount = text.trim().split(/\s+/).length;
+    return Math.round((wordCount / seconds) * 60);
+  }
+
+  inputBox.addEventListener('input', () => {
+    if (!startTime) startTime = new Date();
+
+    // Normalize input & sentence for comparison
+    const typed = inputBox.value.trim().toLowerCase().replace(/\s+/g, ' ');
+    const target = currentSentence.trim().toLowerCase().replace(/\s+/g, ' ');
+
+    if (typed === target) {
+      const endTime = new Date();
+      const timeTaken = (endTime - startTime) / 1000;
+      const wpm = calculateWPM(currentSentence, timeTaken);
+      resultDiv.textContent = `Your typing speed: ${wpm} WPM (Time: ${timeTaken.toFixed(2)} seconds)`;
+      inputBox.disabled = true;
+    }
+  });
+
+  resetBtn.addEventListener('click', fetchSentence);
+
+  // Initial fetch on load
+  fetchSentence();
+</script>
+</body>
+</html>

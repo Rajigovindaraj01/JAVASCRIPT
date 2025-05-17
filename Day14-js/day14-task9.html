@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Currency Exchange Rates</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #e7f0fd;
+    padding: 30px;
+    color: #333;
+    text-align: center;
+  }
+  h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+  table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 90%;
+    max-width: 600px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+  th, td {
+    padding: 12px 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  th {
+    background-color: #3498db;
+    color: white;
+  }
+  tr:hover {
+    background-color: #f0f8ff;
+  }
+  caption {
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #2980b9;
+  }
+  #loading {
+    font-style: italic;
+    margin-top: 20px;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+
+<h2>💱 Latest Currency Exchange Rates (Base: USD)</h2>
+
+<table id="ratesTable" aria-label="Currency Exchange Rates">
+  <caption>Exchange Rates</caption>
+  <thead>
+    <tr>
+      <th>Currency</th>
+      <th>Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Rates will be inserted here -->
+  </tbody>
+</table>
+
+<div id="loading">Loading exchange rates...</div>
+
+<script>
+  const apiURL = "https://open.er-api.com/v6/latest/USD"; // Free and no API key needed
+  const tableBody = document.querySelector('#ratesTable tbody');
+  const loadingDiv = document.getElementById('loading');
+
+  async function fetchExchangeRates() {
+    try {
+      const response = await fetch(apiURL);
+      if (!response.ok) throw new Error("Network response was not OK");
+
+      const data = await response.json();
+
+      // Popular currencies to display
+      const currencies = ["EUR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "INR", "MXN", "NZD"];
+
+      tableBody.innerHTML = ""; // Clear previous data
+
+      currencies.forEach(currency => {
+        const rate = data.rates[currency];
+        if(rate) {
+          const row = document.createElement('tr');
+          row.innerHTML = `<td>${currency}</td><td>${rate.toFixed(4)}</td>`;
+          tableBody.appendChild(row);
+        }
+      });
+
+      loadingDiv.style.display = 'none';
+    } catch (error) {
+      loadingDiv.textContent = "Failed to load exchange rates.";
+      console.error("Error fetching rates:", error);
+    }
+  }
+
+  fetchExchangeRates();
+</script>
+
+</body>
+</html>

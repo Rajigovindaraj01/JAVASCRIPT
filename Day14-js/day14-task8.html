@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AJAX Fetch Comments</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #fafafa;
+    }
+    button {
+      background: #28a745;
+      border: none;
+      padding: 12px 20px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .comment {
+      background: white;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .comment h4 {
+      margin: 0 0 5px;
+      color: #007bff;
+    }
+    .comment p {
+      margin: 0;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<h2>💬 Load Comments with AJAX</h2>
+<button id="loadCommentsBtn">Load Comments</button>
+
+<div id="commentsContainer"></div>
+
+<script>
+  const loadCommentsBtn = document.getElementById('loadCommentsBtn');
+  const commentsContainer = document.getElementById('commentsContainer');
+
+  loadCommentsBtn.addEventListener('click', () => {
+    // Clear previous comments
+    commentsContainer.innerHTML = 'Loading comments...';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/comments?_limit=5', true);
+
+    xhr.onload = function() {
+      if (this.status === 200) {
+        const comments = JSON.parse(this.responseText);
+        commentsContainer.innerHTML = '';
+
+        comments.forEach(comment => {
+          const div = document.createElement('div');
+          div.className = 'comment';
+          div.innerHTML = `
+            <h4>${comment.name} (<em>${comment.email}</em>)</h4>
+            <p>${comment.body}</p>
+          `;
+          commentsContainer.appendChild(div);
+        });
+      } else {
+        commentsContainer.innerHTML = 'Failed to load comments.';
+      }
+    };
+
+    xhr.onerror = function() {
+      commentsContainer.innerHTML = 'Request error.';
+    };
+
+    xhr.send();
+  });
+</script>
+
+</body>
+</html>

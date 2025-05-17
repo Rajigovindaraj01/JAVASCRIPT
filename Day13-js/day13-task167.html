@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Object to JSON Array</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f6f6f6;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    input {
+      padding: 10px;
+      width: 200px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #0984e3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #74b9ff;
+    }
+
+    pre {
+      text-align: left;
+      margin-top: 20px;
+      background: #dfe6e9;
+      padding: 15px;
+      border-radius: 5px;
+      width: 90%;
+      margin: 20px auto;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📁 Add New Object to JSON Array</h2>
+
+  <input type="text" id="nameInput" placeholder="Enter Name" />
+  <input type="number" id="ageInput" placeholder="Enter Age" />
+  <button id="addBtn">Add to JSON</button>
+
+  <pre id="outputBox">[ JSON data will appear here ]</pre>
+
+  <script>
+    let jsonData = [
+      { id: 1, name: "Preethi", age: 25 },
+      { id: 2, name: "Karthi", age: 30 }
+    ];
+
+    const outputBox = document.getElementById("outputBox");
+
+    function displayJSON() {
+      outputBox.textContent = JSON.stringify(jsonData, null, 2);
+    }
+
+    document.getElementById("addBtn").addEventListener("click", () => {
+      const name = document.getElementById("nameInput").value.trim();
+      const age = parseInt(document.getElementById("ageInput").value);
+
+      if (name && age) {
+        const newObject = {
+          id: jsonData.length + 1,
+          name,
+          age
+        };
+        jsonData.push(newObject);
+        displayJSON();
+      } else {
+        alert("Please enter valid name and age.");
+      }
+    });
+
+    // Display initial data
+    displayJSON();
+  </script>
+
+</body>
+</html>

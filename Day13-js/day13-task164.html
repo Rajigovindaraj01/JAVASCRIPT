@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Filter JSON Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f5f6fa;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2d3436;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      background-color: #6c5ce7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #5a4dcf;
+    }
+
+    pre {
+      text-align: left;
+      background-color: #dfe6e9;
+      padding: 15px;
+      border-radius: 8px;
+      width: 90%;
+      margin: 0 auto;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔍 Filter JSON Data (Age ≥ 30)</h2>
+  <button id="filterBtn">Filter Users</button>
+  <pre id="resultBox"></pre>
+
+  <script>
+    const users = [
+      { id: 1, name: "Srija", age: 25 },
+      { id: 2, name: "Venkat", age: 30 },
+      { id: 3, name: "Keerthi", age: 28 },
+      { id: 4, name: "Karthi", age: 35 }
+    ];
+
+    const resultBox = document.getElementById("resultBox");
+
+    document.getElementById("filterBtn").addEventListener("click", () => {
+      const filteredUsers = users.filter(user => user.age >= 30);
+      resultBox.textContent = JSON.stringify(filteredUsers, null, 2);
+    });
+  </script>
+
+</body>
+</html>

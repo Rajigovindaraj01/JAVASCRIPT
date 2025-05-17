@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JSON Stringify Example</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 600px;
+    }
+
+    pre {
+      background-color: #1e1e1e;
+      color: #00ff90;
+      padding: 15px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #00b894;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin-top: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #019875;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 Convert Object to JSON</h1>
+  <div class="card">
+    <pre id="output">// Click the button to see the JSON string</pre>
+    <button onclick="convertToJSON()">Convert to JSON</button>
+  </div>
+
+  <script>
+    function convertToJSON() {
+      const user = {
+        name: "Rajeshwari",
+        age: 25,
+        city: "Thanjavur",
+        profession: "Full Stack Developer",
+        skills: ["HTML", "CSS", "JavaScript", "React", "Node.js"]
+      };
+
+      const jsonString = JSON.stringify(user, null, 2);
+      document.getElementById("output").textContent = jsonString;
+    }
+  </script>
+
+</body>
+</html>

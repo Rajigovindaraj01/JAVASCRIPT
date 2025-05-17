@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LocalStorage JSON Example</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #2d3436;
+    }
+
+    .btn-group {
+      margin: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      background: #0984e3;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #0652dd;
+    }
+
+    .output {
+      margin-top: 20px;
+      background: #2d3436;
+      color: #00ff90;
+      padding: 15px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 500px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 LocalStorage JSON Demo</h1>
+  <div class="btn-group">
+    <button id="storeBtn">Store Data</button>
+    <button id="retrieveBtn">Retrieve Data</button>
+  </div>
+
+  <div class="output" id="result">// Click buttons to store or retrieve data</div>
+
+  <script>
+    const storeBtn = document.getElementById("storeBtn");
+    const retrieveBtn = document.getElementById("retrieveBtn");
+    const resultDiv = document.getElementById("result");
+
+    const items = [
+      { name: "Apple", price: 30 },
+      { name: "Banana", price: 10 },
+      { name: "Orange", price: 20 }
+    ];
+
+    storeBtn.addEventListener("click", () => {
+      localStorage.setItem("productList", JSON.stringify(items));
+      resultDiv.textContent = "✅ Data stored in LocalStorage!";
+    });
+
+    retrieveBtn.addEventListener("click", () => {
+      const data = JSON.parse(localStorage.getItem("productList"));
+      if (data) {
+        let display = data.map(item => `🍎 ${item.name}: ₹${item.price}`).join("\n");
+        resultDiv.textContent = display;
+      } else {
+        resultDiv.textContent = "❌ No data found!";
+      }
+    });
+  </script>
+
+</body>
+</html>

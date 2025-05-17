@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find JSON Object by Property</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f8f9fa;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2d3436;
+    }
+
+    input {
+      padding: 10px;
+      width: 250px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #5a4dcf;
+    }
+
+    pre {
+      background-color: #dfe6e9;
+      padding: 15px;
+      border-radius: 8px;
+      width: 90%;
+      margin: 20px auto;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔍 Find User by Name</h2>
+  <input type="text" id="searchInput" placeholder="Enter name (e.g., keerthi)" />
+  <button id="searchBtn">Search</button>
+
+  <pre id="resultBox">Result will appear here...</pre>
+
+  <script>
+    const users = [
+      { id: 1, name: "Divya", age: 25 },
+      { id: 2, name: "Pooja", age: 30 },
+      { id: 3, name: "Kavya", age: 28 }
+    ];
+
+    const input = document.getElementById("searchInput");
+    const resultBox = document.getElementById("resultBox");
+
+    document.getElementById("searchBtn").addEventListener("click", () => {
+      const nameToFind = input.value.trim();
+      const foundUser = users.find(user => user.name.toLowerCase() === nameToFind.toLowerCase());
+
+      if (foundUser) {
+        resultBox.textContent = JSON.stringify(foundUser, null, 2);
+      } else {
+        resultBox.textContent = `❌ User with name "${nameToFind}" not found.`;
+      }
+    });
+  </script>
+
+</body>
+</html>

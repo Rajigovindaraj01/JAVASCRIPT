@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Remove JSON Object</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2d3436;
+    }
+
+    input {
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #d63031;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e17055;
+    }
+
+    pre {
+      background: #dfe6e9;
+      text-align: left;
+      padding: 15px;
+      border-radius: 6px;
+      width: 90%;
+      margin: 20px auto;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🗑️ Remove Object from JSON Array</h2>
+
+  <input type="text" id="removeName" placeholder="Enter name to remove" />
+  <button id="removeBtn">Remove</button>
+
+  <pre id="jsonDisplay">[ JSON data will appear here ]</pre>
+
+  <script>
+    let jsonData = [
+      { id: 1, name: "Prem", age: 25 },
+      { id: 2, name: "Swetha", age: 30 },
+      { id: 3, name: "Keerthi", age: 28 }
+    ];
+
+    const displayBox = document.getElementById("jsonDisplay");
+
+    function displayJSON() {
+      displayBox.textContent = JSON.stringify(jsonData, null, 2);
+    }
+
+    document.getElementById("removeBtn").addEventListener("click", () => {
+      const nameToRemove = document.getElementById("removeName").value.trim().toLowerCase();
+
+      const originalLength = jsonData.length;
+
+      jsonData = jsonData.filter(obj => obj.name.toLowerCase() !== nameToRemove);
+
+      if (jsonData.length < originalLength) {
+        alert("✅ Object removed successfully.");
+      } else {
+        alert("❌ No object found with that name.");
+      }
+
+      displayJSON();
+    });
+
+    // Show initial data
+    displayJSON();
+  </script>
+
+</body>
+</html>

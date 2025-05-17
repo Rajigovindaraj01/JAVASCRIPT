@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modify JSON Object in Array</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f5f6fa;
+    }
+    h2 {
+      color: #2d3436;
+    }
+    pre {
+      background: #dff9fb;
+      padding: 15px;
+      border-radius: 6px;
+      overflow: auto;
+      white-space: pre-wrap;
+    }
+    button {
+      padding: 10px 18px;
+      background-color: #0984e3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0652DD;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔄 Modify JSON Object in Array</h2>
+  <button id="updateBtn">Update User Age (ID: 2)</button>
+  <pre id="output"></pre>
+
+  <script>
+    let users = [
+      { id: 1, name: "Raji", age: 23 },
+      { id: 2, name: "Sri", age: 20 },
+      { id: 3, name: "Hari", age: 28 }
+    ];
+
+    const output = document.getElementById("output");
+    output.textContent = JSON.stringify(users, null, 2);
+
+    document.getElementById("updateBtn").addEventListener("click", () => {
+      const user = users.find(u => u.id === 2); // find by ID
+      if (user) {
+        user.age = 22; // update age
+        output.textContent = JSON.stringify(users, null, 2); // show updated
+        alert("✅ User updated successfully!");
+      } else {
+        alert("❌ User not found!");
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fetch API Data to Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f6fa;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2d3436;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 20px 0;
+      background-color: #00b894;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #019875;
+    }
+
+    table {
+      width: 90%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #dcdde1;
+      text-align: left;
+    }
+
+    th {
+      background-color: #0984e3;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f1f2f6;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📄 User List from API</h2>
+  <button id="fetchBtn">Fetch Users</button>
+
+  <table id="userTable" style="display: none;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <script>
+    const fetchBtn = document.getElementById('fetchBtn');
+    const userTable = document.getElementById('userTable');
+    const tableBody = document.getElementById('tableBody');
+
+    fetchBtn.addEventListener('click', () => {
+      fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then(data => {
+          tableBody.innerHTML = '';
+          data.forEach(user => {
+            const row = `
+              <tr>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td>${user.address.city}</td>
+              </tr>
+            `;
+            tableBody.innerHTML += row;
+          });
+          userTable.style.display = 'table';
+        })
+        .catch(error => {
+          alert('❌ Failed to fetch user data!');
+          console.error(error);
+        });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sort JSON by Property</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f0f4f7;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2d3436;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #00b894;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: #019875;
+    }
+
+    pre {
+      background-color: #dff9fb;
+      padding: 15px;
+      border-radius: 8px;
+      width: 90%;
+      margin: 0 auto;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔽 Sort Users by Age (Ascending)</h2>
+  <button id="sortBtn">Sort by Age</button>
+  <pre id="outputBox"></pre>
+
+  <script>
+    let users = [
+      { id: 1, name: "Karthi", age: 32 },
+      { id: 2, name: "Preetha", age: 25 },
+      { id: 3, name: "Srija", age: 40 },
+      { id: 4, name: "Divya", age: 28 }
+    ];
+
+    const outputBox = document.getElementById("outputBox");
+
+    // Initial display
+    outputBox.textContent = JSON.stringify(users, null, 2);
+
+    // On button click - sort and show
+    document.getElementById("sortBtn").addEventListener("click", () => {
+      users.sort((a, b) => a.age - b.age); // Ascending sort by age
+      outputBox.textContent = JSON.stringify(users, null, 2);
+    });
+  </script>
+
+</body>
+</html>

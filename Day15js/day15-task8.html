@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day15-task9</title>
+</head>
+
+<body>
+    <!-- 8. Debug an application using console.warn() and console.error(). -->
+    <script>
+        function checkUserInput(input) {
+            if (!input) {
+                console.warn("Warning: Input is empty!");
+                return;
+            }
+
+            if (typeof input !== "string") {
+                console.error("Error: Input must be a string!");
+                return;
+            }
+
+            console.log("Valid input:", input);
+        }
+        checkUserInput("");          
+        checkUserInput(123);        
+        checkUserInput("Hello!");
+    </script>
+</body>
+
+</html>

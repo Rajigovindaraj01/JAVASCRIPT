@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day15-task1</title>
+</head>
+<body>
+    <!-- 1. Write a program that handles a syntax error using try...catch. -->
+     <script>
+         try {
+            let jsonData = '{name: "Rajeshwari", age: 25}';
+            let data = JSON.parse(jsonData); 
+        } catch (error) {
+            console.log("Caught syntax error while parsing JSON:", error.message);
+        }
+     </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day15-task11</title>
+</head>
+
+<body>
+    <!-- 11.Use finally to execute cleanup code even if an error occurs. -->
+    <script>
+        function processData() {
+            try {
+                console.log("Start processing...");
+                throw new Error("Something went wrong!");
+                console.log("This line won't run if error occurs.");
+            } catch (error) {
+                console.error("Error caught:", error.message);
+            } finally {
+                console.log("Cleanup: Closing resources or resetting states.");
+            }
+        }
+        processData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day15-task13</title>
+</head>
+
+<body>
+    <!-- 13.Implement a real-world error logging system using LocalStorage. -->
+    <script>
+        function logError(error) {
+            let logs = JSON.parse(localStorage.getItem('errors')) || [];
+            logs.push(error.message);
+            localStorage.setItem('errors', JSON.stringify(logs));
+        }
+        try {
+            throw new Error("erroringgg");
+        } catch (error) {
+            console.log("Error caught:", error.message);
+            logError(error);
+        }
+        console.log("All errors:", JSON.parse(localStorage.getItem('errors')));
+    </script>
+</body>
+</html>

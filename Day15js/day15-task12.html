@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day15-task12</title>
+</head>
+
+<body>
+    <!-- 12. Prevent infinite recursion by handling a function call limit. -->
+    <script>
+    try {
+        let counter = 1;
+        const limit = 7;
+
+        while (true) {
+            if (counter > limit) {
+                throw new Error("Maximum loop limit reached!");
+            }
+
+            console.log("Loop count:", counter);
+            counter++;
+        }
+    } catch (error) {
+        console.log("Error:", error.message);
+    }
+</script>
+</body>
+</html>

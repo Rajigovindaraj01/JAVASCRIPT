@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day15-task6</title>
+</head>
+
+<body>
+    <!-- 6. Implement nested try...catch blocks to handle multiple errors -->
+    <script>
+        try {
+            console.log("Outer try started");
+
+            try {
+                // ReferenceError
+                console.log(undefinedVariable);
+            } catch (innerError) {
+                console.log("Inner Error:", innerError.message);
+            }
+
+            try {
+                // TypeError
+                let num = 10;
+                num(); //TypeError
+            } catch (anotherInnerError) {
+                console.log("Another Inner Error:", anotherInnerError.message);
+            }
+
+            console.log("Outer try completed");
+
+        } catch (outerError) {
+            console.log("Outer Error:", outerError.message);
+        }
+    </script>
+
+</body>
+
+</html>

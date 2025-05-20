@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day15-mp1</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        input {
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1. User Registration Form with Validation & Error Handling
+✅ Ensures all required fields are filled and checks for valid email format. 
+Features:
+ Throws an error when fields are empty or email is invalid.
+ Uses try...catch to handle validation errors.
+ Displays error messages below the input fields. -->
+
+
+    <h2>User Registration Form</h2>
+    <form id="registrationForm">
+        <label>Name:</label>
+        <input type="text" id="name" />
+        <div id="nameError" class="error"></div>
+
+        <label>Email:</label>
+        <input type="text" id="email" />
+        <div id="emailError" class="error"></div>
+
+        <button type="submit">Register</button>
+    </form>
+    <script>
+    const form = document.getElementById("registrationForm");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        document.getElementById("nameError").textContent = "";
+        document.getElementById("emailError").textContent = "";
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        try {
+            if (name === "") {
+                throw { field: "name", message: "Name is required" };
+            }
+
+            if (email === "") {
+                throw { field: "email", message: "Email is required" };
+            }
+            if (
+                !email.includes("@") ||
+                !email.includes(".") ||
+                email.indexOf("@") === 0 ||
+                email.lastIndexOf(".") < email.indexOf("@") + 2 ||
+                email.endsWith(".")
+            ) {
+                throw { field: "email", message: "Invalid email format" };
+            }
+
+            alert("Registration Successful!");
+            form.reset();
+
+        } catch (error) {
+            if (error.field === "name") {
+                document.getElementById("nameError").textContent = error.message;
+            } else if (error.field === "email") {
+                document.getElementById("emailError").textContent = error.message;
+            } else {
+                console.error("Unknown error:", error);
+            }
+        }
+    });
+</script>
+</body>
+</html>

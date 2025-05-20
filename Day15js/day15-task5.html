@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day15-task6</title>
+</head>
+
+<body>
+    <!-- 5. Create a function that throws a TypeError if input is not a number -->
+    <script>
+        function squareNumber(input) {
+            try {
+                if (typeof input !== "number") {
+                    throw new TypeError("Input must be a number.");
+                }
+                console.log("Square:", input * input);
+            } catch (error) {
+                console.log("Error:", error.message);
+            }
+        }
+
+        squareNumber(5);        
+        squareNumber("hello");   
+        squareNumber(true);   
+    </script>
+
+</body>
+
+</html>
